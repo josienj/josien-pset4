@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         newList = (ListView) findViewById(R.id.list_view);
         DBhelper = new DBhelper(this, null, null, 1);
         initSingletons();
-    // Get the application instance
+
+        // Get the application instance
         app = (MyApplication)getApplication();
 
         // Call a custom application method

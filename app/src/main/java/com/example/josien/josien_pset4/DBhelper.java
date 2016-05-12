@@ -35,19 +35,6 @@ public class DBhelper extends SQLiteOpenHelper{
                 COLUMN_TODO + " TEXT " +
                 ")";
         db.execSQL(query);
-
-        // Create three to-do examples when starting app for the first time
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_TODO, "This is a to-do");
-        db.insert(TABLE_todoList, null, values);
-
-        values = new ContentValues();
-        values.put(COLUMN_TODO, "Add one in the box below");
-        db.insert(TABLE_todoList, null, values);
-
-        values = new ContentValues();
-        values.put(COLUMN_TODO, "Delete your todo's by long-pressing");
-        db.insert(TABLE_todoList, null, values);
     }
 
     @Override
