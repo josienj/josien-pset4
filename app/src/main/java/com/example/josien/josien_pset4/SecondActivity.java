@@ -21,10 +21,16 @@ import com.example.josien.josien_pset4.Model.ToDoItem;
 
 import java.util.ArrayList;
 
+/*
+* Handles everything the user could do with a todoitem
+* Like add an item and store it in the database & listview
+* Update everything that changes.
+ */
 
 public class SecondActivity extends AppCompatActivity {
 
-    EditText editText;
+    // Declare variables
+    EditText editText_item;
     ListView toDoItemsList;
     ArrayAdapter<ToDoItem> listAdapter;
     int listId;
@@ -33,7 +39,7 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        editText = (EditText) findViewById(R.id.todo_edittext);
+        editText_item = (EditText) findViewById(R.id.todo_edittext);
         toDoItemsList = (ListView) findViewById(R.id.list_view2);
 
         Intent intent = getIntent();
@@ -42,33 +48,47 @@ public class SecondActivity extends AppCompatActivity {
         setupTodoListView();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("listid", listId);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        listId = savedInstanceState.getInt("listid");
+    }
+
     /*
     * Add a to-do into the database
     */
     public void addTodo(View view) {
 
-        String input = String.valueOf(editText.getText());
+        String input = String.valueOf(editText_item.getText());
 
         // Check for correct input.
         if (!input.matches("[a-zA-Z1-9\\s]+")) {
-            Toast.makeText(this, "Input isn't correct, try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.correct_input), Toast.LENGTH_SHORT).show();
         } else {
             ToDoManager toDoManager = ToDoManager.getInstance(this);
-            ToDoItem toDoItem = new ToDoItem(editText.getText().toString());
+            ToDoItem toDoItem = new ToDoItem(editText_item.getText().toString());
             toDoItem.setListId(listId);
+            // Make sure the item isn't marked as done
             toDoItem.setCompleted(false);
 
             toDoManager.saveToDoItem(toDoItem);
             // Add item to the ListView
             listAdapter.add(toDoItem);
-            Toast.makeText(this, "Item is added!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.item_added), Toast.LENGTH_SHORT).show();
             // Clear the input field
-            editText.setText("");
+            editText_item.setText("");
         }
     }
 
     /*
-    * Combine the listview and database correctly
+    * Combine the Listview and database correctly
+    * Also handles items done or deleted
     */
     public void setupTodoListView() {
 
@@ -99,7 +119,7 @@ public class SecondActivity extends AppCompatActivity {
                 } else {
                     // Set paint flags through the item
                     itemTextView.setPaintFlags(itemTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    Toast.makeText(getApplicationContext(), "To-do is marked as done!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.todo_done), Toast.LENGTH_SHORT).show();
                     item.setCompleted(true);
                 }
 
@@ -117,7 +137,7 @@ public class SecondActivity extends AppCompatActivity {
                 toDoManager.deleteItem(item.getId());
                 // Delete item from listView
                 listAdapter.remove(item);
-                Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.delete_list), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">josien-pset4</string>
+
+    <string name="hint_listtext">Add a new list here</string>
+    <string name="add_list">ADD NEW LIST</string>
+    <string name="delete_info">Long-press the list to delete it</string>
+    <string name="hint_itemtext">Add a new item here</string>
+    <string name="add_item">ADD</string>
+    <string name="item_info">Long-press an item to delete it or just press an item to mark it is done</string>
+    <string name="correct_input">Input isn\'t correct\, try again</string>
+    <string name="list_added">List is added!</string>
+    <string name="delete_list">Deleted</string>
+    <string name="item_added">Item is added!</string>
+    <string name="todo_done">To-do is marked as done!</string>
 </resources>

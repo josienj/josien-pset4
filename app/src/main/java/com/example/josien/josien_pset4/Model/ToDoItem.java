@@ -5,6 +5,13 @@ package com.example.josien.josien_pset4.Model;
  * 11162295
  * Universiteit van Amsterdam
  */
+
+/*
+* This Activity declares the data for the to-do items
+* So you can use this in all other activities since the methods are public
+* It includes the title and id which can be parsed through getters and setters
+* Also the state of the item (done or not done) is included.
+ */
 public class ToDoItem {
     private int id = -1;
     private int listId;
@@ -14,11 +21,6 @@ public class ToDoItem {
     public ToDoItem() {}
 
     public ToDoItem(String title) {
-        this.title = title;
-    }
-
-    public ToDoItem(int id, String title) {
-        this.id    = id;
         this.title = title;
     }
 

@@ -18,7 +18,7 @@ import com.example.josien.josien_pset4.Model.ToDoList;
 import java.util.ArrayList;
 
 /*
-*  Create a SQLdatabase
+*  Create a SQLdatabase with a Singelton
 */
 public class ToDoManager extends SQLiteOpenHelper {
 
@@ -126,7 +126,7 @@ public class ToDoManager extends SQLiteOpenHelper {
     * Get all todolists from the database
     */
     public ArrayList<ToDoList> retrieveTodoLists(){
-        ArrayList<ToDoList> toDoLists = new ArrayList<ToDoList>();
+        ArrayList<ToDoList> toDoLists = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_LIST + " WHERE 1";
@@ -153,7 +153,7 @@ public class ToDoManager extends SQLiteOpenHelper {
     * Get all todolist items from the database
     */
     public ArrayList<ToDoItem> retrieveTodoItemsByListId(int listId){
-        ArrayList<ToDoItem> toDoItems = new ArrayList<ToDoItem>();
+        ArrayList<ToDoItem> toDoItems = new ArrayList<>();
 
         SQLiteDatabase db = getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_ITEM + " WHERE list_id = "+ Integer.valueOf(listId).toString();

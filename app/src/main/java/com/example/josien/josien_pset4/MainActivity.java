@@ -20,14 +20,15 @@ import com.example.josien.josien_pset4.Model.ToDoList;
 import java.util.ArrayList;
 
 /*
-* Handles everything the user could do with the app
-* Like add a to-do and store it in the database & listview
-* Update everything that changes
+* Handles everything the user could do with a todolist
+* Like add a list and store it in the database & listview
+* Update everything that changes.
  */
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editText;
+    // Declare variables
+    EditText editText_list;
     ListView toDoListsList;
     ArrayAdapter<ToDoList> listAdapter;
 
@@ -35,37 +36,47 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        editText = (EditText) findViewById(R.id.todo_edittext);
+        editText_list = (EditText) findViewById(R.id.todo_edittext);
         toDoListsList = (ListView) findViewById(R.id.list_view);
 
         setupTodoListView();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
     /*
-    * Add a to-do into the database
+    * Add a to-doList into the database
     */
     public void addList(View view) {
 
-        String input = String.valueOf(editText.getText());
+        String input = String.valueOf(editText_list.getText());
 
-        // Check for correct input.
+        // Check for correct input
         if (!input.matches("[a-zA-Z1-9\\s]+")) {
-            Toast.makeText(this, "Input isn't correct, try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.correct_input), Toast.LENGTH_SHORT).show();
         } else {
             ToDoManager toDoManager = ToDoManager.getInstance(this);
-            ToDoList toDoList = new ToDoList(editText.getText().toString());
+            ToDoList toDoList = new ToDoList(editText_list.getText().toString());
 
             toDoManager.saveToDoList(toDoList);
             // Add item to the ListView
             listAdapter.add(toDoList);
-            Toast.makeText(this, "List is added!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, this.getString(R.string.list_added), Toast.LENGTH_SHORT).show();
             // Clear the input field
-            editText.setText("");
+            editText_list.setText("");
         }
     }
 
     /*
-    * Combine the listview and database correctly
+    * Combine the Listview and Database correctly
     */
     public void setupTodoListView() {
 
@@ -79,20 +90,21 @@ public class MainActivity extends AppCompatActivity {
 
         // Apply the adapter on the ViewList
         toDoListsList.setAdapter(listAdapter);
-        final Intent intent = new Intent(this, SecondActivity.class);
+        // Go to items when clicking on a list
+        final Intent item_screen = new Intent(this, SecondActivity.class);
 
         toDoListsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Clicked item value
                 ToDoList list = (ToDoList) toDoListsList.getItemAtPosition(position);
 
-                intent.putExtra("list_id", list.getId());
-                startActivity(intent);
+                item_screen.putExtra("list_id", list.getId());
+                startActivity(item_screen);
             }
         });
 
 
-        // Add a new on click listener
+        // Handles long-click to remove a list
         toDoListsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -102,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 toDoManager.deleteList(list.getId());
                 // Delete item from listView
                 listAdapter.remove(list);
-                Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.delete_list), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });

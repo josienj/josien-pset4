@@ -12,7 +12,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Add a new list here"
+        android:hint="@string/hint_listtext"
         android:id="@+id/todo_edittext"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -21,8 +21,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ADD"
-        android:onClick="addTodo"
+        android:text="@string/add_list"
+        android:onClick="addList"
         android:id="@+id/add_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Long-press the list to delete it"
+        android:text="@string/delete_info"
         android:id="@+id/information_text"
         android:layout_alignRight="@+id/list_view"
         android:layout_alignEnd="@+id/list_view"

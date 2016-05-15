@@ -7,12 +7,16 @@ import java.util.ArrayList;
  * 11162295
  * Universiteit van Amsterdam
  */
+
+/*
+* This Activity declares the data for the to-do lists
+* So you can use this in all other activities since the methods are public
+ */
+
 public class ToDoList {
     private int id = -1;
     private String title;
-    private ArrayList<ToDoItem>  toDoItems = new ArrayList<ToDoItem>();
-
-    public ToDoList() {}
+    private ArrayList<ToDoItem> toDoItems = new ArrayList<>();
 
     public ToDoList(String title) {
         this.title = title;
@@ -21,12 +25,6 @@ public class ToDoList {
     public ToDoList(int id, String title) {
         this.id    = id;
         this.title = title;
-    }
-
-    public ToDoList(int id, String title, ArrayList<ToDoItem> toDoItems) {
-        this.id        = id;
-        this.title     = title;
-        this.toDoItems = toDoItems;
     }
 
     public int getId() {
@@ -39,26 +37,6 @@ public class ToDoList {
 
     public String getTitle() {
         return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public ArrayList<ToDoItem> getToDoItems() {
-        return this.toDoItems;
-    }
-
-    public void setToDoItems(ArrayList<ToDoItem> toDoItems) {
-        this.toDoItems = toDoItems;
-    }
-
-    public void addToDoItem(ToDoItem toDoItem) {
-        this.toDoItems.add(toDoItem);
-    }
-
-    public void removeToDoItem(ToDoItem toDoItem) {
-        this.toDoItems.remove(toDoItem);
     }
 
     public String toString() { return this.title; }

@@ -6,6 +6,7 @@ package com.example.josien.josien_pset4;
 *  Universiteit van Amsterdam
 */
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Paint;
@@ -18,6 +19,11 @@ import android.widget.TextView;
 import com.example.josien.josien_pset4.Model.ToDoItem;
 
 import java.util.ArrayList;
+
+/*
+* This Activity handles the Adapter of the to-do items
+* It handles the view of items in the List and the 'done'-marker.
+ */
 
 public class ToDoItemAdapter extends ArrayAdapter<ToDoItem> {
 
@@ -32,11 +38,10 @@ public class ToDoItemAdapter extends ArrayAdapter<ToDoItem> {
         this.data = data;
     }
 
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
-        ToDoHolder holder = null;
+        ToDoHolder holder;
 
         if(row == null) {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
@@ -51,6 +56,7 @@ public class ToDoItemAdapter extends ArrayAdapter<ToDoItem> {
             holder = (ToDoHolder)row.getTag();
         }
 
+        // Handles an item that is or isn't done
         ToDoItem item = data.get(position);
         holder.txtTitle.setText(item.getTitle());
         if (item.isCompleted()) {
@@ -58,7 +64,6 @@ public class ToDoItemAdapter extends ArrayAdapter<ToDoItem> {
         } else {
             holder.txtTitle.setPaintFlags(0);
         }
-
         return row;
     }
 
