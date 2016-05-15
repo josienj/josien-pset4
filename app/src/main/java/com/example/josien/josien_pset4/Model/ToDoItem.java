@@ -6,14 +6,23 @@ package com.example.josien.josien_pset4.Model;
  * Universiteit van Amsterdam
  */
 public class ToDoItem {
-    private int id;
+    private int id = -1;
     private int listId;
     private String title;
     private boolean completed;
 
-    public int getId() {
-        return id;
+    public ToDoItem() {}
+
+    public ToDoItem(String title) {
+        this.title = title;
     }
+
+    public ToDoItem(int id, String title) {
+        this.id    = id;
+        this.title = title;
+    }
+
+    public int getId() { return id; }
 
     public void setId(int id) {
         this.id = id;
@@ -42,4 +51,6 @@ public class ToDoItem {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+
+    public String toString() { return this.title; }
 }

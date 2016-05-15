@@ -12,6 +12,8 @@ public class ToDoList {
     private String title;
     private ArrayList<ToDoItem>  toDoItems = new ArrayList<ToDoItem>();
 
+    public ToDoList() {}
+
     public ToDoList(String title) {
         this.title = title;
     }
@@ -58,4 +60,6 @@ public class ToDoList {
     public void removeToDoItem(ToDoItem toDoItem) {
         this.toDoItems.remove(toDoItem);
     }
+
+    public String toString() { return this.title; }
 }

@@ -1,6 +1,7 @@
 package com.example.josien.josien_pset4;
 
-/* Josien Jansen
+/*
+*  Josien Jansen
 *  11162295
 *  Universiteit van Amsterdam
 */
@@ -117,7 +118,7 @@ public class ToDoManager extends SQLiteOpenHelper {
     */
     public void deleteItem (int id){
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TABLE_ITEM, "id = ?", new String[] {String.valueOf(id)});
+        db.delete(TABLE_ITEM, "id = ?", new String[]{String.valueOf(id)});
         db.close();
     }
 
@@ -155,7 +156,7 @@ public class ToDoManager extends SQLiteOpenHelper {
         ArrayList<ToDoItem> toDoItems = new ArrayList<ToDoItem>();
 
         SQLiteDatabase db = getReadableDatabase();
-        String query = "SELECT * FROM " + TABLE_ITEM + " WHERE 1";
+        String query = "SELECT * FROM " + TABLE_ITEM + " WHERE list_id = "+ Integer.valueOf(listId).toString();
 
         Cursor c = db.rawQuery(query, null);
 
@@ -169,9 +170,8 @@ public class ToDoManager extends SQLiteOpenHelper {
                 item.setListId(c.getInt(c.getColumnIndex("list_id")));
                 item.setTitle(c.getString(c.getColumnIndex("title")));
 
-                boolean itemCompleted = (c.getInt(c.getColumnIndex("completed")) == 1);
+                boolean itemCompleted = (c.getInt(c.getColumnIndex("is_completed")) == 1);
                 item.setCompleted(itemCompleted);
-
 
                 toDoItems.add(item);
             } while (c.moveToNext()) ;

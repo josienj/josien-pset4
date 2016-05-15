@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Long-press an item to delete it"
+        android:text="Long-press an item to delete it or just press an item to mark it is done"
         android:id="@+id/information_text"
         android:layout_alignRight="@+id/list_view2"
         android:layout_alignEnd="@+id/list_view2"

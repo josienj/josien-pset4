@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.app.Application;
 
 import com.example.josien.josien_pset4.Model.ToDoList;
 
@@ -39,14 +38,6 @@ public class MainActivity extends AppCompatActivity {
         editText = (EditText) findViewById(R.id.todo_edittext);
         toDoListsList = (ListView) findViewById(R.id.list_view);
 
-
-        // Get the application instance
-//        app = (MyApplication)getApplication();
-
-        // Call a custom application method
-//        app.customAppMethod();
-
-
         setupTodoListView();
     }
 
@@ -60,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
         // Check for correct input.
         if (!input.matches("[a-zA-Z1-9\\s]+")) {
             Toast.makeText(this, "Input isn't correct, try again", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             ToDoManager toDoManager = ToDoManager.getInstance(this);
             ToDoList toDoList = new ToDoList(editText.getText().toString());
 
@@ -77,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     /*
     * Combine the listview and database correctly
     */
-    public void setupTodoListView(){
+    public void setupTodoListView() {
 
         final ToDoManager toDoManager = ToDoManager.getInstance(this);
 
@@ -89,6 +79,18 @@ public class MainActivity extends AppCompatActivity {
 
         // Apply the adapter on the ViewList
         toDoListsList.setAdapter(listAdapter);
+        final Intent intent = new Intent(this, SecondActivity.class);
+
+        toDoListsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Clicked item value
+                ToDoList list = (ToDoList) toDoListsList.getItemAtPosition(position);
+
+                intent.putExtra("list_id", list.getId());
+                startActivity(intent);
+            }
+        });
+
 
         // Add a new on click listener
         toDoListsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -104,19 +106,5 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-
-    public void secondScreen(View view) {
-
-        Intent secondScreen = new Intent(this, SecondActivity.class);
-
-        secondScreen.putExtra("todo_items", 500);
-        startActivity(secondScreen);
-    }
-
-    public void customAppMethod()
-    {
-        // Custom application method
     }
 }
